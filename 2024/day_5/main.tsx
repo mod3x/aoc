@@ -62,18 +62,15 @@ function isValidSequence(nums: number[], adjList: Map<number, number[]>) {
 
 function restoreSequence(nums: number[], adjList: Map<number, number[]>) {
   const copy = nums.slice();
-
-  while (!isValidSequence(copy, adjList)) {
-    for (let i = 0; i < copy.length - 1; i++) {
-      if (!adjList.get(copy[i])?.includes(copy[i + 1])) {
-        const tmp = copy[i];
-        copy[i] = copy[i + 1];
-        copy[i + 1] = tmp;
-      }
+  return copy.sort((a, b) => {
+    if (adjList.get(a)?.includes(b)) {
+      return -1;
+    } else if (adjList.get(b)?.includes(a)) {
+      return 1;
     }
-  }
 
-  return copy;
+    return 0;
+  });
 }
 
 function getPivot(nums: number[]) {
@@ -113,4 +110,7 @@ async function part2() {
 }
 
 await part1();
+
+console.time();
 await part2();
+console.timeEnd();
