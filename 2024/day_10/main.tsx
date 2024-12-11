@@ -135,5 +135,5 @@ async function part2() {
   console.log(`Part 2 result : ${result}`);
 }
 
-// await part1();
+await part1();
 await part2();
